@@ -74,6 +74,7 @@
 <script setup>
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import axios from 'axios'
+import Swal from "sweetalert2";
 import Shapes2 from './view-components/Shapes-2.vue'
 
 const API_URL = process.env.VUE_APP_API_URL
@@ -124,8 +125,20 @@ const youtubeEmbed = computed(() => {
 
 const fetchIngredients = async () => {
   const { id_meal } = proxy.$route.params
-  const res = await axios.get(`${API_URL}/lookup.php?i=${id_meal}`)
-  dataMeal.value = res.data.meals[0]
+  await axios.get(`${API_URL}/lookup.php?i=${id_meal}`).then(res => {
+    dataMeal.value = res.data.meals[0]
+  }).catch(err => {
+    dataMeal.value = {}
+    Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Gagal mengambil data",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+})
 }
 
 onMounted(() => {

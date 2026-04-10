@@ -57,6 +57,7 @@ import { ref, onMounted, onUnmounted, computed, getCurrentInstance, watch } from
 import Shapes from './view-components/Shapes.vue'
 import CardItem from './view-components/CardItem.vue'
 import Loading from './view-components/Loading.vue'
+import Swal from "sweetalert2";
 import axios from 'axios'
 
 const API_URL = process.env.VUE_APP_API_URL
@@ -87,6 +88,15 @@ const fetchIMeals = async () => {
     foods.value = res.data.meals
   }).catch(err => {
     foods.value = []
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Gagal mengambil data",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
+    });
   }).finally(() => {
     is_loading.value = false
   })

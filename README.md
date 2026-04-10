@@ -1,57 +1,57 @@
 # 🍽️ Meal Recipe App
 
-A simple recipe web application built with **Vue.js** that displays meal details, ingredients, instructions, and video tutorials.
+A simple recipe web application built with **Vue.js** to display meal details, ingredients, cooking instructions, and video tutorials.
 
 ---
 
 ## 🚀 Tech Stack
 
-* **Vue.js** `^2.6.6`
-* **Axios**
-* **Argon Design System**
-* **Node.js** `v16.20.2`
-* **npm** `7.7.6`
+* Vue.js `^2.6.6`
+* Axios
+* Argon Design System
+* Node.js `v16.20.2`
+* npm `7.7.6`
 
 ---
 
-## 📸 Features
+## 📌 Features
 
-* 📖 View detailed recipe information
-* 🥕 Dynamic ingredients list
-* 📝 Step-by-step cooking instructions
-* 🎥 YouTube video integration
-* 🎨 Modern UI using Argon Design
+* View detailed recipe information
+* Display dynamic ingredients list
+* Step-by-step cooking instructions
+* YouTube video integration
+* Clean and responsive UI
 
 ---
 
 ## ⚙️ Installation
 
-### 1. Clone Repository
+Clone the repository:
 
-```bash
+```bash id="k3s9fd"
 git clone https://github.com/nandiirpansupandi2513/cmlabs-frontend-parttime-test.git
 cd cmlabs-frontend-parttime-test
 ```
 
-### 2. Install Dependencies
+Install dependencies:
 
-```bash
+```bash id="n8p2xm"
 npm install
 ```
 
 ---
 
-## ▶️ Run Project
+## ▶️ Usage
 
-### Development
+Run development server:
 
-```bash
+```bash id="f3l9xq"
 npm run serve
 ```
 
-### Build for Production
+Build for production:
 
-```bash
+```bash id="p0z7na"
 npm run build
 ```
 
@@ -59,47 +59,42 @@ npm run build
 
 ## 📁 Project Structure
 
-```
+```id="l0w2ka"
 src/
  ├── components/
-     ├──view-component/
+ │   └── view-component/
  ├── views/
  ├── assets/
+ ├── router.js
  └── App.vue
- └── router.js
 ```
-
----
-
-## 🎨 UI Design
-
-This project uses **Argon Design System** for styling and layout to provide a clean and modern user experience.
 
 ---
 
 ## 🌐 API
 
-This project uses a public meal API to fetch:
+This project uses a public meal API to fetch recipe data, including ingredients, instructions, and videos.
 
-* Recipe data
-* Ingredients
-* Instructions
-* Videos
+---
+
+## 🌍 Demo
+
+https://cmlabs-frontend-parttime-test-avep7uwr0-nandiirpans13s-projects.vercel.app/
 
 ---
 
 ## 👨‍💻 Author
 
-**Nandi Irpansupandi**
+Nandi Irpan Supandi
 
 ---
 
 ## 📌 Notes
 
-* Make sure you are using Node.js version `16.x`
-* If you encounter issues, try deleting `node_modules` and reinstalling:
+Make sure you are using Node.js version 16.x.
+If you encounter issues:
 
-```bash
-rm -rf node_modules
+```bash id="y2v8qm"
+rm -rf node_modules package-lock.json
 npm install
 ```
