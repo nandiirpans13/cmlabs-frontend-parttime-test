@@ -5,11 +5,6 @@ import Router from "vue-router";
 import AppHeader from "./layout/AppHeader";
 import AppFooter from "./layout/AppFooter";
 
-// Views
-import Home from "./views/Home.vue";
-import Meal from "./views/Meal.vue";
-import DetailMeals from "./views/DetailMeals.vue";
-
 Vue.use(Router);
 
 export default new Router({
@@ -21,7 +16,7 @@ export default new Router({
       name: "home",
       components: {
         header: AppHeader,
-        default: Home,
+        default: () => import("./views/Home.vue"),
         footer: AppFooter
       }
     },
@@ -30,7 +25,7 @@ export default new Router({
       name: "meals",
       components: {
         header: AppHeader,
-        default: Meal,
+        default: () => import("./views/Meal.vue"),
         footer: AppFooter
       }
     },
@@ -39,10 +34,19 @@ export default new Router({
       name: "detail-meal",
       components: {
         header: AppHeader,
-        default: DetailMeals,
+        default: () => import("./views/DetailMeals.vue"),
         footer: AppFooter
       }
     },
+    {
+      path: "*",
+      name: "not-found",
+      components: {
+        header: AppHeader,
+        default: () => import("./views/NotFound.vue"),
+        footer: AppFooter
+      }
+    }
   ],
   scrollBehavior: to => {
     if (to.hash) {

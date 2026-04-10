@@ -25,16 +25,30 @@
 
             <!-- INGREDIENT -->
             <div class="container container-lg ingredient-wrapper">
-              <h2 class="section-title">{{ visibleCount }} Most Popular Ingredients</h2>
-
+              <h2 class="section-title">Ingredients</h2>
               <div class="row pt-3">
+                <Loading 
+                  v-if="is_loading"
+                  v-for="i in 12"
+                  :key="i"
+                  :visible="is_loading"
+                />
+
                 <CardItem
+                  v-if="!is_loading && displayedFoods.length > 0"
                   v-for="(item, index) in displayedFoods"
                   :key="index"
                   :image="item.strThumb"
                   :title="item.strIngredient"
                   @click="goToDetail(item.strIngredient)"
                 />
+
+                <div v-if="!is_loading && filteredFoods.length === 0" class="col-12 text-center py-5">
+                  <div class="empty-state">
+                    <i class="mdi mdi-close display-1 text-white"></i>
+                    <p class="display-6 text-white">No ingredients found.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -45,9 +59,10 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance, watch } from 'vue'
 import Shapes from './view-components/Shapes.vue'
 import CardItem from './view-components/CardItem.vue'
-import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue'
+import Loading from './view-components/Loading.vue'
 import axios from 'axios'
 
 const API_URL = process.env.VUE_APP_API_URL
@@ -58,14 +73,14 @@ const { proxy } = getCurrentInstance()
 const currentIndex = ref(0)
 const keyword = ref("")
 const visibleCount = ref(12)
+const is_loading = ref(false);
+const foods = ref([])
 
 const texts = ref([
   'Create Delicious Meals at Home',
   'Cook Anything You Love',
   'Find Ingredients Easily'
 ])
-
-const foods = ref([])
 
 const filteredFoods = computed(() => {
   return foods.value.filter(item =>
@@ -86,8 +101,15 @@ const goToDetail = (name) => {
 }
 
 const fetchIngredients = async () => {
-  const res = await axios.get(`${API_URL}/list.php?i=list`)
-  foods.value = res.data.meals
+  is_loading.value = true
+
+  await axios.get(`${API_URL}/list.php?i=list`).then(res => {
+    foods.value = res.data.meals
+  }).catch(err => {
+    foods.value = []
+  }).finally(() => {
+    is_loading.value = false
+  })
 }
 
 onMounted(() => {
@@ -99,4 +121,12 @@ onMounted(() => {
 })
 
 onUnmounted(() => clearInterval(interval));
+
+watch(filteredFoods, () => {
+  is_loading.value = true;
+
+  setTimeout(() => {
+    is_loading.value = false;
+  }, 100);
+});
 </script>

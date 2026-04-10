@@ -1,17 +1,20 @@
 <template>
     <header class="header-global">
         <base-nav class="navbar-main" transparent type="" effect="light" expand>
-            <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
+            <router-link :to="{ name: 'home' }" slot="brand" class="navbar-brand mr-lg-5">
                 <i class="mdi mdi-food-fork-drink"></i>
                 Meal Apps
             </router-link>
 
             <div class="row" slot="content-header" slot-scope="{closeMenu}">
                 <div class="col-6 collapse-brand">
-                    <a href="">
-                        <i class="mdi mdi-food-fork-drink"></i>
-                        Meal Apps
-                    </a>
+                    <router-link :to="{ name: 'home' }">
+                        <a href="">
+                            <i class="mdi mdi-food-fork-drink"></i>
+                            Meal Apps
+                        </a>
+                    </router-link>
+
                 </div>
                 <div class="col-6 collapse-close">
                     <close-button @click="closeMenu"></close-button>
