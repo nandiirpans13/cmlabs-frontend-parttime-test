@@ -78,9 +78,7 @@ This project uses a public meal API to fetch recipe data, including ingredients,
 ---
 
 ## 🌍 Demo
-
-https://cmlabs-frontend-parttime-test-avep7uwr0-nandiirpans13s-projects.vercel.app/
-
+http://cmlabs-frontend-parttime-tes-git-a40c3b-nandiirpans13s-projects.vercel.app/
 ---
 
 ## 👨‍💻 Author
