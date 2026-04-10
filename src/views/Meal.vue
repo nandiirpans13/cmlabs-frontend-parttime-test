@@ -29,20 +29,27 @@
                 />
 
                 <CardItem
-                  v-if="!is_loading && filteredFoods.length > 0"
-                  v-for="(item, index) in filteredFoods"
+                  v-if="!is_loading && displayedFoods.length > 0"
+                  v-for="(item, index) in displayedFoods"
                   :key="index"
                   :image="item.strMealThumb"
                   :title="item.strMeal"
                   @click="goToDetail(item.idMeal)"
                 />
 
-                <div v-if="!is_loading && filteredFoods.length === 0" class="col-12 text-center py-5">
+                <div v-if="!is_loading && displayedFoods.length === 0" class="col-12 text-center py-5">
                   <div class="empty-state">
                     <i class="mdi mdi-close display-1 text-white"></i>
                     <p class="display-6 text-white">No meals found.</p>
                   </div>
                 </div>
+              </div>
+
+              <div class="d-flex justify-content-center mt-4">
+                <base-pagination
+                  :page-count="totalPages"
+                  v-model="pagination.page"
+                />
               </div>
             </div>
           </div>
@@ -65,12 +72,26 @@ const { proxy } = getCurrentInstance()
 const is_loading = ref(false);
 const keyword = ref("")
 const foods = ref([])
+const pagination = ref({
+  page: 1,
+  perPage: 12,
+})
 
 const filteredFoods = computed(() => {
   return foods.value.filter(item =>
     item.strMeal &&
     item.strMeal.toLowerCase().includes(keyword.value.toLowerCase())
   )
+})
+
+const totalPages = computed(() =>
+  Math.ceil(filteredFoods.value.length / pagination.value.perPage)
+)
+
+const displayedFoods = computed(() => {
+  const start = (pagination.value.page - 1) * pagination.value.perPage
+  const end = start + pagination.value.perPage
+  return filteredFoods.value.slice(start, end)
 })
 
 const goToDetail = (id) => {
@@ -115,4 +136,12 @@ watch(filteredFoods, () => {
     is_loading.value = false;
   }, 100);
 });
+
+watch(keyword, () => {
+  pagination.value.page = 1
+})
+
+watch(filteredFoods, () => {
+  pagination.value.page = 1
+})
 </script>
